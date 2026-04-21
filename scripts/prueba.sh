@@ -123,7 +123,7 @@ fi
 
 case $numero in
         1)
-                echo "El valor es 1"
+                echo "El valor es 1"    
                 ;;
         2)
                 echo "El valor es 2"
