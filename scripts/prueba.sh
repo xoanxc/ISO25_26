@@ -135,3 +135,27 @@ case $numero in
                 echo "Valor no valido"
                 ;;
 esac
+
+
+# Explicación bucle UNTIL: Se ejecuta el bloque de código hasta que se cumpla la condición. Es decir, se ejecuta al menos una vez.
+contador=0
+echo " ----- WHILE ----- "
+while [ $contador -lt 10 ]
+do
+        echo $contador
+        let contador=contador+1
+done
+
+contador=0
+echo " ----- UNTIL ----- "
+until [ $contador -ge 10 ]
+do
+        echo $contador
+        let contador=contador+1
+done
+
+# Explicación bucle FOR: Se ejecuta un bloque de código un número determinado de veces. Se puede iterar sobre una secuencia de números, sobre los elementos de una lista o sobre los archivos de un directorio.
+for i in {1..10}
+do
+        echo $i
+done
