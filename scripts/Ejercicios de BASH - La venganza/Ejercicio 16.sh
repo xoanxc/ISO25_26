@@ -4,10 +4,12 @@ valor1=$1
 valor2=$2
 valor3=$3
 
-if [ "$valor1" == "s" ]; then
+if [ "$valor1" == "s" ]
+then
     let resultado=valor2+valor3
     echo "La suma de $valor2 y $valor3 es: $resultado"
-elif [ "$valor1" == "r" ]; then
+elif [ "$valor1" == "r" ]
+then
     let resultado=valor2-valor3
     echo "La resta de $valor2 por $valor3 es: $resultado"
 else

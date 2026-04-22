@@ -2,7 +2,8 @@
 #!/bin/bash
 read -rep "Ingrese una cadena de texto: " cadena
 
-if [ -z "$cadena" ]; then
+if [ -z "$cadena" ]
+then
     echo "Error: El usuario es analfabeto."
 else
     echo "La cadena de texto es: $cadena"

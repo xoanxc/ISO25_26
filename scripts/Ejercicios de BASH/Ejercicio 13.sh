@@ -4,7 +4,8 @@ read -rep "Introduce un valor: " valor
 
 let "resultado=$valor % 2"
 
-if [ $resultado -eq 0 ]; then
+if [ $resultado -eq 0 ]
+then
     echo "El número $valor es par."
 else
     echo "El número $valor es impar."

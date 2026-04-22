@@ -3,11 +3,13 @@
 read -rep "Introduce el primer valor: " valor1
 read -rep "Introduce el segundo valor: " valor2
 
-if [ $valor1 -ge $valor2 ]; then
+if [ $valor1 -ge $valor2 ]
+then
     echo "Error: El primer valor debe ser menor que el segundo."
 else
     echo "Los valores enteros entre $valor1 y $valor2 son:"
-    for ((i=valor1+1; i<valor2; i++)); do
+    for ((i=valor1+1; i<valor2; i++))
+    do
         echo $i
     done
 fi
