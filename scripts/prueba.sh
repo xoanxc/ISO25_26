@@ -30,7 +30,23 @@ echo $USER
 echo $UID
 
 
+# Operadores aritméticos
++ suma
+- resta
+* producto
+/ división entera
+% resto entero
 
+# Operadores de comparación
+&& -a AND
+|| -o OR
+! NOT
+> -gt
+< -lt
+>= -ge
+<= -le
+== -eq
+!= -ne
 
 
 
