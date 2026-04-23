@@ -18,18 +18,6 @@ read -rep "Introduce tu nombre: " nombre
 
 echo "Hola $nombre"
 
-
-# Variables de sistema
-
-echo $HOME
-
-echo $PWD
-
-echo $USER
-
-echo $UID
-
-
 # Operadores aritméticos
 + suma
 - resta
@@ -48,14 +36,22 @@ echo $UID
 == -eq
 != -ne
 
+# Variables de sistema
+
+echo $HOME
+
+echo $PWD
+
+echo $USER
+
+echo $UID
 
 
-echo $#
+echo $# # Número de parámetros pasados al script
 
-echo $*
+echo $* # Todos los parámetros pasados al script
 
-ls ñ
-echo $?
+echo $? # Devuelve el código de salida del último comando ejecutado. 0 si se ha ejecutado correctamente, un número diferente a 0 si ha habido un error.
 
 #1 - Crea un programa que muestre por pantalla el mensaje "Hola mundo!"
 
@@ -137,6 +133,7 @@ else
         echo "El valor es negativo"
 fi
 
+# Case
 case $numero in
         1)
                 echo "El valor es 1"    
