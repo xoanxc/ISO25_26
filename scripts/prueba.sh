@@ -1020,3 +1020,81 @@ done
 
 
 #40 - Crear un programa que, dado un valor n entero en euros, devuelva los billetes y monedas necesarios para dar el cambio justo. Es decir, si n=92, deberá devolver 1 billete de 50, 2 de 20 y una moneda de 2.
+
+cantidad=$((1 + $RANDOM % 2000))
+echo "Cantidad: $cantidad"
+
+for valor in 500 200 100 50 20 10 5 2 1
+do
+    billetes=0
+    
+    if [ $cantidad -ge $valor ]
+    then
+        let "billetes = $cantidad / $valor"
+        let "cantidad = $cantidad % $valor"
+    fi
+    
+    echo "$billetes de $valor euros"
+done
+
+#41 - Crear un programa que permita jugar al Blackjack (21) con variante. El jugador recibe una carta por turno y se puede plantar antes de superar 21. Del 1 al 10 (se obvia el as). La máquina recibirá el mismo número de cartas que decida tener el jugador.  
+
+debug=1
+total_usuario=0
+total_maquina=0
+respuesta="s"
+contador=0
+min=1
+max=10
+objetivo=21
+
+while [ $respuesta != "n" -a $total_usuario -lt $objetivo ]
+do
+    let "carta=$min + $RANDOM % $max"
+    echo "[DEBUG] Valor 'carta': $carta"
+    
+    let "total_usuario=$total_usuario + $carta"
+    echo "[DEBUG] Valor 'total_usuario': $total_usuario"
+    
+    let "contador=$contador+1"
+    echo "[DEBUG] Valor 'contador': $contador"
+    
+    echo "Carta recibida: $carta"
+    echo "El valor de tus cartas es de $total_usuario"
+    
+    if [ $total_usuario -lt $objetivo ]
+    then
+        read -rep "¿Quieres otra carta? S/n " respuesta
+    elif [ $total_usuario -eq $objetivo ]
+    then
+        echo "---Victoria---"
+    else
+        echo "---Derrota---"
+    fi
+done
+
+
+while [ $total_usuario -lt $objetivo -a $contador -gt 0 ]
+do
+    let "carta=$min + $RANDOM % $max"
+    echo "[DEBUG] Valor 'carta': $carta"
+
+    let "total_maquina=$total_maquina + $carta"
+    echo "[DEBUG] Valor 'total_maquina': $total_maquina"
+done
+
+echo "La máquina ha obtenido un total de $total_maquina" 
+
+if [ $total_maquina -le $objetivo -a $total_usuario -ne $objetivo ]
+then
+    if [ $total_maquina -gt $total_usuario ]
+    then
+        echo "---Derrota---"
+    elif [ $total_maquina -lt $total_usuario ]
+    then
+        echo "---Victoria---"
+    else
+        echo "---Empate---"
+    fi
+
+fi
