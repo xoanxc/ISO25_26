@@ -29,9 +29,9 @@ else
         # chpasswd recibe el formato "usuario:contraseña" mediante la tuberia (si, la llamdo así porque así la llamaba Don Enrique en sus clases de SOM)
         echo "$usuario:$password" | chpasswd
             
-        echo "Usuario '$usuario' creado correctamente."
+        echo "Usuario "$usuario" creado correctamente."
     done < "$ficheroUsuarios" # Redirigimos la entrada del bucle al fichero de usuarios para que lo lea línea por línea.
 done
 fi
 
-# No compruebo si el usuario es root o no, ya que no se solicitó en el enunciado.
+# No compruebo si el usuario es root o no, ya que no se solicitó en el enunciado y ya se hace en la segunda parte de la práctica 4.

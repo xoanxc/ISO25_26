@@ -10,14 +10,13 @@ fi
 # Comprobar si no se ha pasado ningún parámetro
 if [ $# -eq 0 ]; then
     echo "Error: Falta introducir parámetros."
-    echo "Uso: $0 [-p permisos archivo] [-ip interfaz estado] [-o propietario archivo] [-ls dir] [-a dir] [-l dir]"
     exit 1
 fi
 
 # Comprobación de parametros
 case $1 in
         -p) # para modificar los permisos de un archivo. 
-            if [ $# -eq 3 ] # Comprobamos que hay 3 parámetros exactos (script, permisos, archivo)
+            if [ $# -eq 3 ] # Comprobamos que hay 3 parámetros exactos (parametro, permisos, archivo)
             then
                 chmod "$2" "$3"
                 echo "Permisos de $3 cambiados a $2."
@@ -27,14 +26,68 @@ case $1 in
                 exit 1
             fi
             ;;
-        -ip) # para modificar el estado de una interfaz de red (up o down).  
-            
+        -ip) # para modificar el estado de una interfaz de red (up o down). 
+            if [ $# -eq 3 ] # Comprobamos que hay 3 parámetros exactos (parametro, estado, interfaz)
+            then
+                if [ "$2" == "up" ]
+                then
+                    ip link set "$3" up
+                    echo "Interfaz $3 activada."
+                elif [ "$2" == "down" ]
+                then
+                    ip link set "$3" down
+                    echo "Interfaz $3 desactivada."
+                else
+                    echo "Error: El estado debe ser "up" o "down"."
+                    echo "Uso correcto: $0 -ip <up/down> <interfaz>"
+                    exit 1
+                fi
+            else
+                echo "Error de parámetros."
+                echo "Uso correcto: $0 -ip <up/down> <interfaz>"
+                exit 1
+            fi
             ;;
         -o) # para modificar el propietario de un archivo.  
-            
+            if [ $# -eq 3 ] # Comprobamos que hay 3 parámetros exactos (parametro, propietario, archivo)
+            then
+                chown "$2" "$3"
+                echo "Propietario de $3 cambiado a $2."
+            else
+                echo "Error de parámetros."
+                echo "Uso correcto: $0 -o <propietario> <archivo>"
+                exit 1
+            fi
             ;;
         -l) # listará un directorio 
-
+            if [ $# -eq 2 ] # Comprobamos que hay 2 parámetros exactos (parametro, directorio)
+            then
+                ls "$2"
+            else
+                echo "Error de parámetros."
+                echo "Uso correcto: $0 -l <directorio>"
+                exit 1
+            fi
+            ;;
+        -la) # listará un directorio y los archivos ocultos.
+            if [ $# -eq 2 ] # Comprobamos que hay 2 parámetros exactos (parametro, directorio)
+            then
+                ls -a "$2"
+            else
+                echo "Error de parámetros."
+                echo "Uso correcto: $0 -la <directorio>"
+                exit 1
+            fi
+            ;;
+        -ll) # listará un directorio con detalles.
+            if [ $# -eq 2 ] # Comprobamos que hay 2 parámetros exactos (parametro, directorio)
+            then
+                ls -l "$2"
+            else
+                echo "Error de parámetros."
+                echo "Uso correcto: $0 -ll <directorio>"
+                exit 1
+            fi
             ;;
         *)
             # Si introducen algo que no existe en el case
@@ -45,7 +98,7 @@ case $1 in
             echo "  -o  Modificar propietario"
             echo "  -l Listar directorio"
             echo "  -la  Listar directorio y ocultos"
-            echo "  -li  Listar directorio con detalles"
+            echo "  -ll  Listar directorio con detalles"
             exit 1
             ;;
 esac
