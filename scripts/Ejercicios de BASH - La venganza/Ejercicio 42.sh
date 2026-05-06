@@ -36,6 +36,7 @@ do
     fi
     
     echo "Posiciones -> Verde: $posicionVerde | Amarillo: $posicionAmarillo | Azul: $posicionAzul"
+    read -rep "" enter # Esperar a que el usuario presione Enter para continuar
 done
 
 # Comprobación del patito ganador
