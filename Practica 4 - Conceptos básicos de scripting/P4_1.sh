@@ -19,19 +19,17 @@ then
 
 # Si el fichero es correcto, se procede a leerlo línea por línea y crear los usuarios.
 else 
-    # "read -r usuario password" almacena la primera palabra en la variable "usuario" y la segunda en "password". El bucle se repetirá hasta que se hayan leído todas las líneas del fichero.
+    # "read -r usuario password" almacena la primera palabra en la variable "usuario" y la segunda en "password".
     while read -r usuario password
     do
         # Creamos el usuario (-m crea el directorio home)
         useradd -m "$usuario"
             
-        # Asignamos la contraseña de forma automática
-        # chpasswd recibe el formato "usuario:contraseña" mediante la tuberia (si, la llamdo así porque así la llamaba Don Enrique en sus clases de SOM)
+        # Asignamos la contraseña de forma automática mediante la tubería
         echo "$usuario:$password" | chpasswd
             
-        echo "Usuario "$usuario" creado correctamente."
-    done < "$ficheroUsuarios" # Redirigimos la entrada del bucle al fichero de usuarios para que lo lea línea por línea.
-done
+        echo "Usuario $usuario creado correctamente."
+    done < "$ficheroUsuarios" # Redirigimos la entrada del bucle al fichero.
 fi
 
 # No compruebo si el usuario es root o no, ya que no se solicitó en el enunciado y ya se hace en la segunda parte de la práctica 4.

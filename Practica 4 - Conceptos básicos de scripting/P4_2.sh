@@ -38,7 +38,7 @@ case $1 in
                     ip link set "$3" down
                     echo "Interfaz $3 desactivada."
                 else
-                    echo "Error: El estado debe ser "up" o "down"."
+                    echo "Error: El estado debe ser up/down."
                     echo "Uso correcto: $0 -ip <up/down> <interfaz>"
                     exit 1
                 fi
