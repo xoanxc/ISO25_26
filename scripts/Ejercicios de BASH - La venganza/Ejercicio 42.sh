@@ -50,7 +50,6 @@ else
 fi
 
 # Determinar si el jugador ganó o perdió
-# Aquí sí usamos [[ ]] y == porque estamos comparando texto (cadenas)
 if [[ "$apuesta" == "$ganador" ]]
 then
     echo "¡Felicidades! Has ganado, el patito $ganador fue el ganador."

@@ -90,7 +90,7 @@ case $1 in
             fi
             ;;
         *)
-            # Si introducen algo que no existe en el case
+            # Si introducen algo que no existe en el case mostramos las opciones
             echo "Opción $1 no reconocida."
             echo "Opciones disponibles:"
             echo "  -p  Modificar permisos"
