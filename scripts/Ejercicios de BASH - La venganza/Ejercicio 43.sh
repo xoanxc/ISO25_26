@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Variable de control.
-juego_terminado=0
+juegoTerminado=0
 
-while [[ $juego_terminado == 0 ]]
+while [[ $juegoTerminado == 0 ]]
 do
     echo "Selecciona una de las siguientes opciones: piedra/papel/tijeras"
     read -rp "> " opcion
@@ -15,9 +15,11 @@ do
     else
         cpu=$((RANDOM % 3))
         
-        if [[ $cpu == 0 ]]; then
+        if [[ $cpu == 0 ]]
+        then
             maquina="piedra"
-        elif [[ $cpu == 1 ]]; then
+        elif [[ $cpu == 1 ]]
+        then
             maquina="papel"
         else
             maquina="tijeras"
@@ -26,17 +28,18 @@ do
         echo "La máquina ha elegido: $maquina"
 
         # Determinar el ganador
-        if [[ "$opcion" == "$maquina" ]]; then
+        if [[ "$opcion" == "$maquina" ]]
+        then
             echo "¡Es un empate! Intenta de nuevo."
         elif [[ "$opcion" == "piedra" && "$maquina" == "tijeras" ]] || [[ "$opcion" == "papel" && "$maquina" == "piedra" ]] || [[ "$opcion" == "tijeras" && "$maquina" == "papel" ]]
         then
             echo "¡Felicidades, ganaste!"
             # Terminamos el juego
-            juego_terminado=1
+            juegoTerminado=1
         else
             echo "¡Oh no, la máquina gana!"
             # Terminamos el juego
-            juego_terminado=1 
+            juegoTerminado=1 
         fi
     fi
 done
