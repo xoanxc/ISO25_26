@@ -1039,25 +1039,50 @@ done
 
 #41 - Crear un programa que permita jugar al Blackjack (21) con variante. El jugador recibe una carta por turno y se puede plantar antes de superar 21. Del 1 al 10 (se obvia el as). La máquina recibirá el mismo número de cartas que decida tener el jugador.  
 
-debug=1
-total_usuario=0
-total_maquina=0
-respuesta="s"
-contador=0
+
+
+debug=$1 # Variable para mostrar o no mensajes de depuracion. Necesitará ser "-q"
+total_usuario=0 # Valor para las cartas del usuario
+total_maquina=0 # Valor para las cartas de la máquina
+respuesta="s" # Valor para continuar del usuario
+contador=0 
 min=1
 max=10
 objetivo=21
 
+# para indicar si se hace debug o no
+if [ $# -eq 1 ]
+then
+    if [ $debug == "-q" ]
+    then
+        debug_flag=1
+    fi
+else
+    debug_flag=0
+fi
+
 while [ $respuesta != "n" -a $total_usuario -lt $objetivo ]
 do
     let "carta=$min + $RANDOM % $max"
-    echo "[DEBUG] Valor 'carta': $carta"
+    
+    if [ $debug_flag -eq 1 ]
+    then
+        echo "[DEBUG] Valor 'carta': $carta"
+    fi
     
     let "total_usuario=$total_usuario + $carta"
-    echo "[DEBUG] Valor 'total_usuario': $total_usuario"
+    
+    if [ $debug_flag -eq 1 ]
+    then
+        echo "[DEBUG] Valor 'total_usuario': $total_usuario"
+    fi
     
     let "contador=$contador+1"
-    echo "[DEBUG] Valor 'contador': $contador"
+    
+    if [ $debug_flag -eq 1 ]
+    then
+        echo "[DEBUG] Valor 'contador': $contador"
+    fi
     
     echo "Carta recibida: $carta"
     echo "El valor de tus cartas es de $total_usuario"
@@ -1077,10 +1102,17 @@ done
 while [ $total_usuario -lt $objetivo -a $contador -gt 0 ]
 do
     let "carta=$min + $RANDOM % $max"
-    echo "[DEBUG] Valor 'carta': $carta"
-
+    if [ $debug_flag -eq 1 ]
+    then
+        echo "[DEBUG] Valor 'carta': $carta"
+    fi
     let "total_maquina=$total_maquina + $carta"
-    echo "[DEBUG] Valor 'total_maquina': $total_maquina"
+    
+    if [ $debug_flag -eq 1 ]
+    then
+        echo "[DEBUG] Valor 'total_maquina': $total_maquina"
+    fi
+    let "contador=$contador-1"
 done
 
 echo "La máquina ha obtenido un total de $total_maquina" 
@@ -1096,5 +1128,179 @@ then
     else
         echo "---Empate---"
     fi
+else
+    if [ $total_usuario -le $objetivo ]
+    then
+        echo "---Victoria---"
+    fi
+fi
 
+
+# 42 - Crear un programa que permita simular un juego de carreras lentas. Se pedirá apostar por alguno de los participantes. El carrera consiste en moverse 10 casillas. Los participantes se moverán, cada uno, al azar, entre -3 y 3 casillas. Cada turno se verá la posición (no puede ser menor que 0).
+
+# Variables que indican la posición de los participantes
+participante_1=0
+participante_2=0
+participante_3=0
+participante_4=0
+
+# Valor de desplazamiento cada turno de los participantes
+movimiento_azar=0
+
+# Valores mínimo y máximo que pueden tener los participantes.
+min=0
+max=10
+
+# Variable para indicar el valor de la apuesta del usuario
+apuesta=0
+ganador=0
+
+clear
+echo "---Carrera lenta---"
+echo "¿Quién va a ganar?"
+echo "1. Participante 1"
+echo "2. Participante 2"
+echo "3. Participante 3"
+echo "4. Participante 4"
+read -rep "" apuesta
+
+while [ $ganador -eq 0 ]
+do
+    let "movimiento_azar = ($RANDOM % 7) - 3"
+    let "participante_1 = $participante_1 + $movimiento_azar"
+    if [ $participante_1 -lt $min ]
+    then
+        participante_1=0
+    elif [ $participante_1 -ge $max -a $ganador -eq 0 ]
+    then
+        ganador=1
+    fi
+    
+    echo "Participante 1: $participante_1"
+    
+    let "movimiento_azar = ($RANDOM % 7) - 3"
+    let "participante_2 = $participante_2 + $movimiento_azar"
+    if [ $participante_2 -lt $min ]
+    then
+        participante_2=0
+    elif [ $participante_2 -ge $max -a $ganador -eq 0 ]
+    then
+        ganador=2
+    fi
+    
+    echo "Participante 2: $participante_2"
+    
+    let "movimiento_azar = ($RANDOM % 7) - 3"
+    let "participante_3 = $participante_3 + $movimiento_azar"
+    if [ $participante_3 -lt $min ]
+    then
+        participante_3=0
+    elif [ $participante_3 -ge $max -a $ganador -eq 0 ]
+    then
+        ganador=3
+    fi
+    
+    echo "Participante 3: $participante_3"
+    
+    let "movimiento_azar = ($RANDOM % 7) - 3"
+    let "participante_4 = $participante_4 + $movimiento_azar"
+    if [ $participante_4 -lt $min ]
+    then
+        participante_4=0
+    elif [ $participante_4 -ge $max -a $ganador -eq 0 ]
+    then
+        ganador=4
+    fi
+    
+    echo "Participante 4: $participante_4"
+    
+    read -rep "" vacio
+    clear
+done
+
+echo "El ganador de la carrera es el participante $ganador"
+
+if [ $apuesta -eq $ganador ]
+then
+    echo "Enhorabuena"
+else
+    echo "Perdiste"
+fi
+
+# Solucion con funciones
+
+
+# Variables que indican la posición de los participantes
+participante_1=0
+participante_2=0
+participante_3=0
+participante_4=0
+
+# Valor de desplazamiento cada turno de los participantes
+movimiento_azar=0
+
+# Valores mínimo y máximo que pueden tener los participantes.
+min=0
+max=10
+
+# Variable para indicar el valor de la apuesta del usuario
+apuesta=0
+ganador=0
+
+function desplazamiento {
+    # Parametros esperados:
+    # $1 -> Debe ser la variable del participante 
+    # $2 -> El numero de participante
+    participante=$1
+    numero=$2
+    
+    let "movimiento_azar = ($RANDOM % 7) - 3"
+    let "participante = $participante + $movimiento_azar"
+    if [ $participante -lt $min ]
+    then
+        participante=0
+    elif [ $participante -ge $max -a $ganador -eq 0 ]
+    then
+        ganador=$numero
+    fi
+    
+    echo "Participante $numero: $participante"
+    
+    return $participante
+}
+
+clear
+echo "---Carrera lenta---"
+echo "¿Quién va a ganar?"
+echo "1. Participante 1"
+echo "2. Participante 2"
+echo "3. Participante 3"
+echo "4. Participante 4"
+read -rep "" apuesta
+
+while [ $ganador -eq 0 ]
+do
+    desplazamiento $participante_1 1
+    participante_1=$?
+    
+    desplazamiento $participante_2 2
+    participante_2=$?
+    
+    desplazamiento $participante_3 3
+    participante_3=$?
+    
+    desplazamiento $participante_4 4
+    participante_4=$?
+    
+    read -rep "" vacio
+    clear
+done
+
+echo "El ganador de la carrera es el participante $ganador"
+
+if [ $apuesta -eq $ganador ]
+then
+    echo "Enhorabuena"
+else
+    echo "Perdiste"
 fi
