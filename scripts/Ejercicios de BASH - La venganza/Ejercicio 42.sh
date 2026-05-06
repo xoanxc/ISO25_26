@@ -33,7 +33,7 @@ do
     if (( posicionAzul < 0 ))
     then
         posicionAzul=0
-    fio
+    fi
     
     echo "Posiciones -> Verde: $posicionVerde | Amarillo: $posicionAmarillo | Azul: $posicionAzul"
 done
