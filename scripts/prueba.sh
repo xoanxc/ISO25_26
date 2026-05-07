@@ -1304,3 +1304,42 @@ then
 else
     echo "Perdiste"
 fi
+
+
+# 43 - Crear un programa que permita jugar al "piedra, papel o tijeras" con la máquina. La máquina seleccionará al azar una de las tres. Se debe jugar hasta que haya un ganador.
+
+ganador=0
+jugador=0
+maquina=0
+
+while [ $ganador -eq 0 ]
+do
+    echo "Introduce la jugada:"
+    echo "0. Piedra"
+    echo "1. Papel"
+    echo "2. Tijeras"
+    read -rep "" jugador
+    
+    let "maquina = $RANDOM % 3"
+    let "victoria_maquina = (1 + $jugador) % 3"
+    let "victoria_jugador = (1 + $maquina) % 3"
+    
+    echo "Valor de la máquina: $maquina"
+    
+    if [ $maquina -eq $victoria_maquina ]
+    then
+        ganador=-1
+    elif [ $jugador -eq $victoria_jugador ]
+    then
+        ganador=1
+    else
+        echo "---Empate---"
+    fi
+done
+
+if [ $ganador -eq 1 ]
+then
+    echo "---Victoria---"
+else
+    echo "---Derrota---"
+fi
