@@ -27,16 +27,16 @@ case $1 in
             fi
             ;;
         -ip) # para modificar el estado de una interfaz de red (up o down). 
-            if [ $# -eq 3 ] # Comprobamos que hay 3 parámetros exactos (parametro, estado, interfaz)
+            if [ $# -eq 3 ] # Comprobamos que hay 3 parámetros exactos (parametro, interfaz, estado)
             then
-                if [ "$2" == "up" ]
+                if [ "$3" == "up" ]
                 then
-                    ip link set "$3" up
-                    echo "Interfaz $3 activada."
-                elif [ "$2" == "down" ]
+                    ip link set "$2" up
+                    echo "Interfaz $2 activada."
+                elif [ "$3" == "down" ]
                 then
-                    ip link set "$3" down
-                    echo "Interfaz $3 desactivada."
+                    ip link set "$2" down
+                    echo "Interfaz $2 desactivada."
                 else
                     echo "Error: El estado debe ser up/down."
                     echo "Uso correcto: $0 -ip <up/down> <interfaz>"
@@ -69,6 +69,13 @@ case $1 in
                 exit 1
             fi
             ;;
+
+        ##################################
+        # Podria haber utilizado un if o case dentro del -l, 
+        #pero decidí hacerlo de está forma por la costumbre en linux 
+        # Ej: ls -l, ls -la, etc.
+        ##################################
+
         -la) # listará un directorio y los archivos ocultos.
             if [ $# -eq 2 ] # Comprobamos que hay 2 parámetros exactos (parametro, directorio)
             then
@@ -79,6 +86,8 @@ case $1 in
                 exit 1
             fi
             ;;
+
+
         -ll) # listará un directorio con detalles.
             if [ $# -eq 2 ] # Comprobamos que hay 2 parámetros exactos (parametro, directorio)
             then
