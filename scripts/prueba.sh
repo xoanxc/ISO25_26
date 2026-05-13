@@ -1343,3 +1343,53 @@ then
 else
     echo "---Derrota---"
 fi
+# 44 - Crear un programa que permita realizar la búsqueda binaria de información. Para ello, debe recibir una listade números enteros secuenciales no repetidos. La búsqueda binaria consiste en dividir la lista a la mitad y comprobar si el valor de la mitad es menor o mayor que el que se busca. Dependiendo de la comprobación, se buscará en la mitad inferior o en la mitad superior, hasta hallar el número objetivo.
+
+# "10 20 30 40 50 60"
+function binary_search {
+    objetivo=200
+    lista=$*
+    echo $lista
+    tam=$(echo $lista | wc -w)
+    if [[ $tam == 0 ]]
+    then
+        echo "Valor no encontrado"
+        exit 1
+    fi
+    
+    ((medio= ($tam+1) / 2))
+    
+    valor_medio=$(echo $lista | cut -d' ' -f$medio)
+    
+    if [[ $objetivo == $valor_medio ]]
+    then
+        echo "Valor encontrado"
+    elif [[ $tam == 1 ]]
+    then
+        echo "No encontrado"
+    elif [[ $objetivo -lt $valor_medio ]]
+    then
+        ((n=$medio-1))
+        izq=$(echo $lista | cut -d' ' -f1-$n)
+        binary_search $izq
+    else
+        ((n=$medio+1))
+        der=$(echo $lista | cut -d' ' -f$n-$tam)
+        binary_search $der
+    fi
+        
+}
+
+mi_lista="10 20 30 40 50 60 70 80 90 100 110 120 130 140 150 160 170 180 190 200"
+binary_search $mi_lista
+'
+
+# 45 - Mastermind: Se requiere crear un programa para jugar a Mastermind. Este juego es muy sencillo: se generará una cadena de 4 valores numéricos enteros entre 0 y 9, pudiendo estar repetidos los valores. El jugador deberá intentar adivinar la cadena en menos de 5 intentos. Para ello:
+#- El orden importa. Es decir, la cadena 1234 no es la misma que 4321
+#- Como pista, el programa indicará:
+#  - Con una 'X' o similar, si el valor está en la cadena pero no en la posición correcta
+#  - Con una 'O' o similar, si el valor está en la cadena y en la posición correcta
+#  - Con un '-' o similar, si el valor no está en la cadena.
+# - Si el jugador acierta la cadena en el orden correcto, se contará como una victoria
+# - Si el jugador se queda sin intentos, se indicará la derrota y se mostrará la cadena.
+# - Debe mantener un registro de partidas
