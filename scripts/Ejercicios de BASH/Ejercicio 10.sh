@@ -10,23 +10,23 @@
 #> El precio es de <precio>
 
 #!/bin/bash
-echo "Menú"
+echo "> Menú"
 echo "1. Pokeball"
 echo "2. Poción"
 echo "3. Repelente"
-read -p "Seleccione un producto: " opcion
+read -rep "><opcion>" opcion
 
 case $opcion in
     1)
-        echo "El precio de la Pokeball es de 200 monedas."
-        ;;
+        echo "El precio de la Pokeball es de 200 pokemonedas."
+    ;;
     2)
-        echo "El precio de la Poción es de 300 monedas."
-        ;;
+        echo "El precio de la Poción es de 300 pokemonedas."
+    ;;
     3)
-        echo "El precio del Repelente es de 150 monedas."
+        echo "El precio del Repelente es de 350 pokemonedas."
         ;;
     *)
-        echo "Opción no válida. Por favor, seleccione una opción del menú."
-        ;;
+        echo "Opción no valida, por favor elija una opción disponible en el menú."
+    ;;
 esac
