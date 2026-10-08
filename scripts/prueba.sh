@@ -1393,3 +1393,200 @@ binary_search $mi_lista
 # - Si el jugador acierta la cadena en el orden correcto, se contará como una victoria
 # - Si el jugador se queda sin intentos, se indicará la derrota y se mostrará la cadena.
 # - Debe mantener un registro de partidas
+
+
+let "adivinar1= $RANDOM % 10"
+let "adivinar2= $RANDOM % 10"
+let "adivinar3= $RANDOM % 10"
+let "adivinar4= $RANDOM % 10"
+
+contador=0
+max_rondas=5
+
+pista1=""
+pista2=""
+pista3=""
+pista4=""
+
+isVictoria=0
+
+while [ $contador -lt $max_rondas -a $isVictoria -eq 0 ]
+do
+    read -rep "Introduce el primer valor de la secuencia: " valor1
+    read -rep "Introduce el segundo valor de la secuencia: " valor2
+    read -rep "Introduce el tercer valor de la secuencia: " valor3
+    read -rep "Introduce el cuarto valor de la secuencia: " valor4
+    
+    if [ $valor1 -eq $adivina1 ]
+    then
+        pista1="O"
+    elif [ $valor1 -eq $adivina2 -o $valor1 -eq $adivina3 -o $valor1 -eq $adivina4 ]
+    then
+        pista1="X"
+    else
+        pista1="-"
+    fi
+    
+    if [ $valor2 -eq $adivina2 ]
+    then
+        pista1="O"
+    elif [ $valor2 -eq $adivina1 -o $valor2 -eq $adivina3 -o $valor2 -eq $adivina4 ]
+    then
+        pista1="X"
+    else
+        pista1="-"
+    fi
+    
+    if [ $valor3 -eq $adivina3 ]
+    then
+        pista1="O"
+    elif [ $valor1 -eq $adivina4 -o $valor1 -eq $adivina1 -o $valor1 -eq $adivina2 ]
+    then
+        pista1="X"
+    else
+        pista1="-"
+    fi
+    
+    if [ $valor4 -eq $adivina4 ]
+    then
+        pista4="O"
+    elif [ $valor1 -eq $adivina1 -o $valor1 -eq $adivina2 -o $valor1 -eq $adivina3 ]
+    then
+        pista4="X"
+    else
+        pista4="-"
+    fi
+    
+    echo "$pista1 $pista2 $pista3 $pista4"
+    
+    if [ $pista1 == "O" -a $pista2 == "O" -a $pista3 == "O" -a $pista4 == "O" ]
+    then
+        isVictoria=1
+    fi
+    
+    let "contador=$contador + 1"
+done
+
+if [ $isVictoria -eq 1 ]
+then
+    echo "¡Victoria!"
+    echo "$USER - Victoria - Intentos: $contador - $(date +"%Y%m%d")" >> registro.txt
+else
+    echo "¡Derrota!"
+    echo "La cadena era: "
+    echo "$adivina1 $adivina2 $adivina3 $adivina4"
+    echo "$USER - Derrota - $(date +"%Y%m%d")" >> registro.txt
+fi
+'
+# 46 - Crear un programa que permita convertir unidad de diferentes campos. Algunos pueden ser:
+# - Conversión de temperatura: De Celsius a Kelvin o Fahrenheit, o viceversa.
+# - Conversor de tamaño: De metros a pulgadas y viceversa
+# - Conversor de monedas: De Euros a Libras, a Dólares y viceversa
+# El usuario debe poder escoger tanto la unidad de origen como el destino
+
+# compresor.sh
+
+#!/bin/bash
+
+modificador=$1
+fichero_comprimir=$2
+objetivo=$3
+
+if [ $# -ne 3 ] 
+then
+    echo "Error, se deben introducir los parámetros correctos"
+else 
+    if [ $modificador == "-c" ]
+    then
+        if [ -f $fichero_comprimir ]
+        then
+            echo "Ya existe $fichero_comprimir, ¿Qué quieres hacer?"
+            echo "1. Borrar"
+            echo "2. Actualizar"
+            read -rep "" respuesta
+            
+            if [ $respuesta -eq 1 ]
+            then
+                rm $fichero_comprimir
+            fi
+        fi
+        
+        tar -rf $fichero_comprimir $objetivo
+        
+    elif [ $modificador == "-e" ]
+    then
+        if [ -f $fichero_comprimir -a -d $objetivo ]
+        then
+            tar -xf $fichero_comprimir -C $objetivo
+        else
+            echo "Error, no existe el fichero o la ruta"
+        fi
+    else
+        echo "Error, opción no válida"
+    fi
+fi
+
+#diario.sh
+#!/bin/bash
+
+if [ ! -f ".diario_$USER" ]
+then
+	touch ".diario_$USER"
+fi
+
+terminar=0
+
+while [ $terminar -ne 1 ]
+do
+	echo "¿Que quieres hacer?"
+	echo "1. Escribir"
+	echo "2. Mostrar"
+	echo "3. Eliminar"
+	echo "4. Salir"
+	read -rep "" respuesta
+	
+	case $respuesta in
+		1)
+			read -rep "" texto
+			fecha=$(date "+%Y-%m-%d")
+			echo $fecha:$texto >> ".diario_$USER"
+		;;
+		2)
+			cat ".diario_$USER"
+		;;
+		3)
+			rm ".diario_$USER"
+		;;
+		4)
+			terminar=1
+		;;
+		*)
+			echo "Error, no encontrado"
+		;;	
+	
+	
+	
+	
+	esac
+done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
